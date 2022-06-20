@@ -15,9 +15,11 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
+      - uses: microsoft/playwright-github-action@v1
       - run: npm ci
-      
       - run: npm test
+      - run: npm run build
+      - run: npm run package
 
   publish-npm:
     needs: build
@@ -30,6 +32,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - uses: microsoft/playwright-github-action@v1
       - run: npm ci
+      - run: npm test
       - run: npm run build
       - run: npm run package
       - run: cd package && npm publish
