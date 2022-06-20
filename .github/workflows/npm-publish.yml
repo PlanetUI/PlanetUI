@@ -24,9 +24,6 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Get the version
-        id: get_version
-        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
@@ -34,6 +31,6 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: npm ci
       - run: npm run package
-      - run: cd package && npm publish --access public --tag ${{ steps.get_version.outputs.VERSION }}
+      - run: cd package && npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
