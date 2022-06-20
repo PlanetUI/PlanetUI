@@ -15,26 +15,24 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - uses: microsoft/playwright-github-action@v1
       - run: npm ci
+      - run: npx playwright install
       - run: npm test
       - run: npm run build
-      - run: npm run package
 
   publish-npm:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
-      - uses: microsoft/playwright-github-action@v1
-      - run: npm ci
-      - run: npm test
-      - run: npm run build
       - run: npm run package
-      - run: cd package && npm publish
+      - run: cd package && npm publish --access public --tag ${{ steps.get_version.outputs.VERSION }}
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
