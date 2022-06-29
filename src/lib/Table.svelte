@@ -1,4 +1,5 @@
 <script lang="ts">
+    export let component: any;
     export let heads: string[] = [];
     export let rows: any[] = [];
     export let search: string = '';
@@ -58,7 +59,15 @@
             {#if page * limit > index && index >= (page - 1) * limit}
             <tr>
                 {#each row as cell}
-                    <td>{cell}</td>
+                    {#if cell.html}
+                        <td>{@html cell.html}</td>
+                    {:else if cell.svelte}
+                        <td>
+                            <svelte:component this={component} index={index}/>
+                        </td>
+                    {:else}
+                        <td>{cell}</td>
+                    {/if}
                 {/each}
             </tr>
             {/if}

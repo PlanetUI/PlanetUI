@@ -1,6 +1,7 @@
 <script lang="ts">
     import Input from '$lib/Input.svelte';
     import Table from '$lib/Table.svelte';
+    import TableAction from '$lib/TableAction.svelte';
 </script>
 
 <h1>Welcome to SvelteKit</h1>
@@ -8,10 +9,10 @@
 
 <!-- <Input type="password" /> -->
 
-<Table heads={['Name', 'Age']} rows={[
-    ['Are John', '25'],
-    ['Laku Kane', '26'],
-    ['Mane Joe', '27'],
+<Table heads={['Name', 'Age', 'Actions']} component={TableAction} rows={[
+    ['Are John', '25', {html:`<button onclick="alert()">OK</button>`}],
+    ['Laku Kane', '26', 'string'],
+    ['Mane Joe', '27', {svelte: 'myfunc'}],
     ['Bae Dack', '28'],
     ['Lao Kill', '29'],
 
