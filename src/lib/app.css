@@ -7,7 +7,7 @@ button {
 }
 
 table {
-    @apply w-full;
+	@apply w-full;
 }
 
 table tr {
@@ -28,4 +28,8 @@ select {
 
 option {
 	@apply bg-slate-100 px-3 py-1;
+}
+
+a {
+	@apply text-blue-500 hover:text-blue-700;
 }
