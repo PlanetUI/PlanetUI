@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+button {
+	@apply bg-gray-200 px-3 py-1 hover:bg-gray-300;
+}
+
+table {
+    @apply w-full;
+}
+
+table tr {
+	@apply bg-white border px-3 py-1;
+}
+
+table th {
+	@apply bg-gray-200 px-3 py-1;
+}
+
+input {
+	@apply bg-slate-100 px-3 py-1;
+}
+
+select {
+	@apply bg-slate-100 px-3 py-1;
+}
+
+option {
+	@apply bg-slate-100 px-3 py-1;
+}

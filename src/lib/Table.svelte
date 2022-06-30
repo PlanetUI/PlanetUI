@@ -38,63 +38,69 @@
 	}
 </script>
 
-<label for="limit">limit: </label>
-<select
-	name="limit"
-	bind:value={selected}
-	on:change={() => {
-		(page = 1), (limit = selected.value);
-	}}
-	required
->
-	{#each limitList as lm}
-		<option value={lm}>{lm.text}</option>
-	{/each}
-</select>
-
-<input type="text" bind:value={search} on:keyup={filterData} placeholder="Search" />
-<table>
-	<thead>
-		<tr>
-			{#each heads as head}
-				<th>{head}</th>
+<div class="flex w-full">
+	<div class="m-auto">
+		<select
+			name="limit"
+			bind:value={selected}
+			on:change={() => {
+				(page = 1), (limit = selected.value);
+			}}
+			required
+		>
+			{#each limitList as lm}
+				<option value={lm}>{lm.text}</option>
 			{/each}
-		</tr>
-	</thead>
-	<tbody>
-		{#each data as row, index}
-			{#if page * limit > index && index >= (page - 1) * limit}
+		</select>
+
+		<input type="text" bind:value={search} on:keyup={filterData} placeholder="Search" />
+		<table>
+			<thead>
 				<tr>
-					{#each row as cell}
-						{#if cell.html}
-							<td>{@html cell.html}</td>
-						{:else if cell.svelte}
-							<td>
-								<svelte:component this={component} {index} />
-							</td>
-						{:else}
-							<td>{cell}</td>
-						{/if}
+					{#each heads as head}
+						<th>{head}</th>
 					{/each}
 				</tr>
-			{/if}
-		{/each}
-	</tbody>
-</table>
-<br />
+			</thead>
+			<tbody>
+				{#each data as row, index}
+					{#if page * limit > index && index >= (page - 1) * limit}
+						<tr>
+							{#each row as cell}
+								{#if cell.html}
+									<td>{@html cell.html}</td>
+								{:else if cell.svelte}
+									<td>
+										<svelte:component this={component} {index} />
+									</td>
+								{:else}
+									<td>{cell}</td>
+								{/if}
+							{/each}
+						</tr>
+					{/if}
+				{/each}
+			</tbody>
+		</table>
+		<br />
 
-{#each Array(totalPage) as _, i}
-	<button
-		on:click={() => {
-			page = i + 1;
-		}}>{i + 1}</button
-	>
-{/each}
+		<div class="flex gap-1">
+			{#each Array(totalPage) as _, i}
+				<button
+					class=" w-10"
+					on:click={() => {
+						page = i + 1;
+					}}>{i + 1}</button
+				>
+			{/each}
+		</div>
 
-<br />
+		<br />
 
-limit: {limit}<br />
-page: {page}<br />
-total: {total}<br />
-url: {url}<br />
-search: {search}<br />
+		limit: {limit}<br />
+		page: {page}<br />
+		total: {total}<br />
+		url: {url}<br />
+		search: {search}<br />
+	</div>
+</div>
